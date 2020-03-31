@@ -1,0 +1,42 @@
+<web-app>
+    <servlet>
+        <servlet-name>insert</servlet-name>
+        <servlet-class>servletcontroller.clientservice.CreateClientServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>insert</servlet-name>
+        <url-pattern>/managementsystem/client/insert</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>update</servlet-name>
+        <servlet-class>servletcontroller.clientservice.UpdateClientServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>update</servlet-name>
+        <url-pattern>/managementsystem/client/update</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>retrieve</servlet-name>
+        <servlet-class>servletcontroller.ClientCrudController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>retrieve</servlet-name>
+        <url-pattern>/retrieve</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>delete</servlet-name>
+        <servlet-class>servletcontroller.ClientCrudController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>delete</servlet-name>
+        <url-pattern>/delete</url-pattern>
+    </servlet-mapping>
+
+</web-app>
