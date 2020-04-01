@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/style.css">
+    <script>
+        function showInsertBlock(){
+            var insertBlock = document.getElementById("insert");
+            var retrieveBlock = document.getElementById("retrieve");
+
+            if(insertBlock.style.display === "none"){
+                insertBlock.style.display = "block";
+            }
+            if(retrieveBlock.style.display === "block"){
+                retrieveBlock.style.display = "none";
+            }
+        }
+
+        function showRetrieveBlock(){
+            var insertBlock = document.getElementById("insert");
+            var retrieveBlock = document.getElementById("retrieve");
+
+            if(insertBlock.style.display === "block"){
+                insertBlock.style.display = "none";
+            }
+            if(retrieveBlock.style.display === "none"){
+                retrieveBlock.style.display = "block";
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="body">
+        <div class="header">
+            <div class = "logo"><p>CLIENT MANAGEMENT SYSTEM</p></div>
+            <div class="navigation">
+                <div class="nav1">
+                    <a href="#" onclick="showInsertBlock()">Create Client</a>
+                </div>
+                <div class="nav2">
+                    <a href="#" onclick="showRetrieveBlock()">Show Client</a>
+                </div>
+            </div>
+        </div>
+        <div class="middle">
+            <div class="insert" id ="insert" style="display:block">
+                <form action="insert" method="post">
+                    <input type="text" name="clientId" placeholder="Enter id"><br>
+                    <input type="text" name="name" placeholder="Enter name"><br>
+                    <input type="text" name="address" placeholder="Enter address"><br>
+                    <input type="submit" style="text-align:center">
+                </form>
+            </div>
+            <div class="retrieve" id = "retrieve" style="display:none">
+                <form action="retrieve" method="get">
+                    <input type="text" name="clientId"><br>
+                    <input type="submit" style="text-align:center">
+                </form>
+                <div class="retrieveAll">
+                    <form action ="retrieveAll" method="get">
+                        <input type="submit" value="show all">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

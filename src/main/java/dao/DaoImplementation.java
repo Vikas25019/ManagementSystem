@@ -5,6 +5,7 @@ import pojo.Person;
 import java.net.UnknownHostException;
 import java.sql.*;
 
+import java.util.List;
 import java.util.Map;
 
 public class DaoImplementation<T extends Person, U> implements IDaoInterface<T, U> {
@@ -23,12 +24,14 @@ public class DaoImplementation<T extends Person, U> implements IDaoInterface<T, 
     }
 
     @Override
-    public void retrieve(T t, U u, Map<String, String> data) throws SQLException, ClassNotFoundException, UnknownHostException {
+    public Map<String, String> retrieve(T t, U u, Map<String, String> data) throws SQLException, ClassNotFoundException, UnknownHostException {
+        Map<String, String> viewData;
         if (u instanceof MysqlDatabaseOperation) {
-            mysqlDatabaseOperation.retrieveFromDatabase(t,data);
+            viewData = mysqlDatabaseOperation.retrieveFromDatabase(t,data);
         }  else {
             throw new UnsupportedOperationException("Invalid Operation");
         }
+        return viewData;
     }
 
     @Override
@@ -49,6 +52,16 @@ public class DaoImplementation<T extends Person, U> implements IDaoInterface<T, 
         }
     }
 
+    @Override
+    public List<List<String>> retrieveAll(T t, U u) throws SQLException, ClassNotFoundException {
+        List<List<String>> data;
+        if (u instanceof MysqlDatabaseOperation) {
+            data = mysqlDatabaseOperation.retrieveAll(t);
+        } else {
+            throw new UnsupportedOperationException("Invalid Operation");
+        }
+        return data;
+    }
     @Override
     public <P,E> boolean isIdPresent(P p,E e ,Map<String , String> data ) throws SQLException, ClassNotFoundException, UnknownHostException {
         if (e instanceof MysqlDatabaseOperation) {
