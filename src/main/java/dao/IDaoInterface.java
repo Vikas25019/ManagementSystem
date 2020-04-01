@@ -8,7 +8,7 @@ import java.util.Map;
 public interface IDaoInterface<T, U> {
     int create(T t, U u, Map<String, String> data) throws SQLException, ClassNotFoundException, UnknownHostException;
 
-    void retrieve(T t, U u, Map<String, String> data) throws SQLException, ClassNotFoundException, UnknownHostException;
+    Map<String, String> retrieve(T t, U u, Map<String, String> data) throws SQLException, ClassNotFoundException, UnknownHostException;
 
     int update(T t, U u, Map<String, String> data ,String columnName) throws SQLException, ClassNotFoundException, UnknownHostException;
 

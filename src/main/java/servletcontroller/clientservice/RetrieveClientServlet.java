@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class RetrieveClientServlet extends HttpServlet {
@@ -41,7 +42,10 @@ public class RetrieveClientServlet extends HttpServlet {
         }
         if (checkId) {
             try {
-                daoInterface.retrieve(client, mysqlDatabaseOperation, checkData);
+                Map<String, String> viewData = daoInterface.retrieve(client, mysqlDatabaseOperation, checkData);
+                //RETRIVE ALL CLIENT
+                out.println(viewData);
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
