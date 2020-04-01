@@ -23,12 +23,14 @@ public class DaoImplementation<T extends Person, U> implements IDaoInterface<T, 
     }
 
     @Override
-    public void retrieve(T t, U u, Map<String, String> data) throws SQLException, ClassNotFoundException, UnknownHostException {
+    public Map<String, String> retrieve(T t, U u, Map<String, String> data) throws SQLException, ClassNotFoundException, UnknownHostException {
+        Map<String, String> viewData;
         if (u instanceof MysqlDatabaseOperation) {
-            mysqlDatabaseOperation.retrieveFromDatabase(t,data);
+            viewData = mysqlDatabaseOperation.retrieveFromDatabase(t,data);
         }  else {
             throw new UnsupportedOperationException("Invalid Operation");
         }
+        return viewData;
     }
 
     @Override

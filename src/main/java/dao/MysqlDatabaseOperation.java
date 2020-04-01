@@ -81,7 +81,7 @@ public class MysqlDatabaseOperation<T> {
 
     }
 
-    void retrieveFromDatabase(T t, Map<String, String> data) throws SQLException, ClassNotFoundException {
+    Map<String, String> retrieveFromDatabase(T t, Map<String, String> data) throws SQLException, ClassNotFoundException {
         String columnName = "";
         String select = "select * from %s";
         String tableName = t.getClass().getSimpleName().toLowerCase();
@@ -105,17 +105,14 @@ public class MysqlDatabaseOperation<T> {
 
         String selectSql = String.format(selectQuery, tableName, columnName, id);
         ResultSet results = statement.executeQuery(selectSql);
-
+        Map<String , String> viewData = new HashMap<>();
         while (results.next()) {
-            columnsSet.forEach(columns -> System.out.format("%-20s", columns));
-            System.out.println();
             for (String columns : columnsSet) {
                 String result = results.getString(columns);
-                System.out.format("%-20s", result);
+                viewData.put(columns,result);
             }
-            System.out.println("\n");
         }
-
+        return viewData;
     }
 
     int updateInDatabase(T t, Map<String, String> data, String columnName) throws SQLException, ClassNotFoundException {
