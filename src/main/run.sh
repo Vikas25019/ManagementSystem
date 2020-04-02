@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-javac -d ../webapp/WEB-INF/classes/ inputvalidation/*.java servletcontroller/clientservice/*.java dao/*.java pojo/*.java -classpath /usr/share/java/servlet-api-3.1.jar
+javac -d ../webapp/WEB-INF/classes/ inputvalidation/*.java servletcontroller/clientservice/*.java servletcontroller/employeeservice/*.java dao/*.java pojo/*.java -classpath /usr/share/java/servlet-api-3.1.jar
 
 #mv DemoServ.class /home/vikas/Project/src/main/webapp/WEB-INF/classes/
 #mv SqServlet.class /home/vikas/Project/src/main/webapp/WEB-INF/classes/

@@ -1,4 +1,4 @@
-package servletcontroller.clientservice;
+package servletcontroller.employeeservice;
 
 import dao.DaoImplementation;
 import dao.IDaoInterface;
@@ -6,6 +6,7 @@ import dao.MysqlDatabaseOperation;
 import inputvalidation.InputValidation;
 import inputvalidation.InvalidException;
 import pojo.Client;
+import pojo.Employee;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -18,32 +19,32 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-public class RetrieveClientServlet extends HttpServlet {
+public class RetrieveEmployee extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        IDaoInterface<Client, MysqlDatabaseOperation> daoInterface = new DaoImplementation<>();
-        MysqlDatabaseOperation<Client> mysqlDatabaseOperation = MysqlDatabaseOperation.getInstance();
-        RetrieveClientServlet retrieveClientServlet = new RetrieveClientServlet();
-        final String ID = "clientId";
+        IDaoInterface<Employee, MysqlDatabaseOperation> daoInterface = new DaoImplementation<>();
+        MysqlDatabaseOperation<Employee> mysqlDatabaseOperation = MysqlDatabaseOperation.getInstance();
+        RetrieveEmployee retrieveEmployee = new RetrieveEmployee();
+        final String ID = "employeeId";
 
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
 
-        Client client = new Client();
+        Employee employee = new Employee();
 
         String id = request.getParameter(ID);
-        client.setId(id);
+        employee.setId(id);
 
-        boolean valid = retrieveClientServlet.inputValidation(client, request, response);
+        boolean valid = retrieveEmployee.inputValidation(employee, request, response);
 
         if (valid) {
             Map<String, String> checkData = new HashMap<>();
             checkData.put(ID, id);
 
             try {
-                boolean checkId = daoInterface.isIdPresent(client, mysqlDatabaseOperation, checkData);
+                boolean checkId = daoInterface.isIdPresent(employee, mysqlDatabaseOperation, checkData);
                 if (checkId) {
-                    Map<String, String> viewData = daoInterface.retrieve(client, mysqlDatabaseOperation, checkData);
+                    Map<String, String> viewData = daoInterface.retrieve(employee, mysqlDatabaseOperation, checkData);
 
 
                     Set<String> columns = viewData.keySet();
@@ -58,16 +59,16 @@ public class RetrieveClientServlet extends HttpServlet {
                     out.print(" <div class=\"background\">\n" +
                             "        </div>");
                     out.println(" <div class=\"header\">\n" +
-                            "            <div class = \"logo\"><p>CLIENT MANAGEMENT SYSTEM</p></div>\n" +
+                            "            <div class = \"logo\"><p>EMPLOYEE MANAGEMENT SYSTEM</p></div>\n" +
                             "            <div class=\"navigation\">\n" +
                             "                <div class=\"nav3\">\n" +
                             "                    <a href=\"../../index.html\">Home</a>\n" +
                             "                </div>\n" +
                             "                <div class=\"nav1\">\n" +
-                            "                    <a href=\"createclient.html\">Create Client</a>\n" +
+                            "                    <a href=\"createemployee.html\">Create Employee</a>\n" +
                             "                </div>\n" +
                             "                <div class=\"nav2\">\n" +
-                            "                    <a href=\"showclient.html\">Show Client</a>\n" +
+                            "                    <a href=\"showemployee.html\">Show Employee</a>\n" +
                             "                </div>\n" +
                             "            </div>\n" +
                             "        </div>");
@@ -87,7 +88,7 @@ public class RetrieveClientServlet extends HttpServlet {
                     for (String columnName : columns) {
                         out.print("<td>" + viewData.get(columnName) + "</td>");
                     }
-                    out.print("<td><a href='update-page?clientId=" + viewData.get("clientId") + "'>edit</a></td><td><a href='delete?clientId=" + viewData.get("clientId") + "'>delete</a></td></tr>");
+                    out.print("<td><a href='update-page?employeeId=" + viewData.get("employeeId") + "'>edit</a></td><td><a href='delete?employeeId=" + viewData.get("employeeId") + "'>delete</a></td></tr>");
                     out.print("</tbody>");
                     out.println("</table>");
                     out.println("</div>");
@@ -95,23 +96,23 @@ public class RetrieveClientServlet extends HttpServlet {
                     out.println("</html>");
 
                 } else {
-                    out.print("<script>alert('Id is not present.');location ='showclient.html';</script>");
+                    out.print("<script>alert('Id is not present.');location ='showemployee.html';</script>");
                 }
             } catch (Exception e) {
-                out.print("<script>alert('" + e + "');location ='showclient.html';</script>");
+                out.print("<script>alert('" + e + "');location ='showemployee.html';</script>");
             }
         }
     }
 
-    private boolean inputValidation(Client client, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    private boolean inputValidation(Employee employee, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         InputValidation inputValidation = new InputValidation();
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
         try {
-            inputValidation.userIdValidator(client.getId());
+            inputValidation.userIdValidator(employee.getId());
             return true;
         } catch (InvalidException e) {
-            out.print("<script>alert('" + e + "');location ='showclient.html';</script>");
+            out.print("<script>alert('" + e + "');location ='showemployee.html';</script>");
             return false;
         }
     }
