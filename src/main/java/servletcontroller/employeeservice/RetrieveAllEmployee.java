@@ -1,9 +1,9 @@
-package servletcontroller.clientservice;
+package servletcontroller.employeeservice;
 
 import dao.DaoImplementation;
 import dao.IDaoInterface;
 import dao.MysqlDatabaseOperation;
-import pojo.Client;
+import pojo.Employee;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -13,17 +13,17 @@ import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.List;
 
-public class RetrieveAllClient extends HttpServlet {
+public class RetrieveAllEmployee extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        IDaoInterface<Client, MysqlDatabaseOperation> daoInterface = new DaoImplementation<>();
-        MysqlDatabaseOperation<Client> mysqlDatabaseOperation = MysqlDatabaseOperation.getInstance();
-        Client client = new Client();
+        IDaoInterface<Employee, MysqlDatabaseOperation> daoInterface = new DaoImplementation<>();
+        MysqlDatabaseOperation<Employee> mysqlDatabaseOperation = MysqlDatabaseOperation.getInstance();
+        Employee employee = new Employee();
 
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
         try {
-            List<List<String>> data = daoInterface.retrieveAll(client,mysqlDatabaseOperation);
+            List<List<String>> data = daoInterface.retrieveAll(employee,mysqlDatabaseOperation);
 
             out.println("<!DOCTYPE html>");
             out.println("<html>");
@@ -36,16 +36,16 @@ public class RetrieveAllClient extends HttpServlet {
             out.print(" <div class=\"background\">\n" +
                     "        </div>");
             out.println(" <div class=\"header\">\n" +
-                    "            <div class = \"logo\"><p>CLIENT MANAGEMENT SYSTEM</p></div>\n" +
+                    "            <div class = \"logo\"><p>EMPLOYEE MANAGEMENT SYSTEM</p></div>\n" +
                     "            <div class=\"navigation\">\n" +
                     "                <div class=\"nav3\">\n" +
                     "                    <a href=\"../../index.html\">Home</a>\n" +
                     "                </div>\n" +
                     "                <div class=\"nav1\">\n" +
-                    "                    <a href=\"createclient.html\">Create Client</a>\n" +
+                    "                    <a href=\"createemployee.html\">Create Employee</a>\n" +
                     "                </div>\n" +
                     "                <div class=\"nav2\">\n" +
-                    "                    <a href=\"showclient.html\">Show Client</a>\n" +
+                    "                    <a href=\"showemployee.html\">Show Employee</a>\n" +
                     "                </div>\n" +
                     "            </div>\n" +
                     "        </div>");
@@ -65,7 +65,7 @@ public class RetrieveAllClient extends HttpServlet {
                 for(String value : list){
                     out.print("<td>"+value+"</td>");
                 }
-                out.print("<td><a href='update-page?clientId="+list.get(1)+"'>edit</a></td><td><a href='delete?clientId="+list.get(1)+"'>delete</a></td></tr>");
+                out.print("<td><a href='update-employee-page?employeeId="+list.get(1)+"'>edit</a></td><td><a href='deleteEmployee?employeeId="+list.get(1)+"'>delete</a></td></tr>");
             }
             out.print("</tbody>");
             out.print("<table>");

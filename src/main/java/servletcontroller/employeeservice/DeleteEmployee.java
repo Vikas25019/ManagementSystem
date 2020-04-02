@@ -1,11 +1,11 @@
-package servletcontroller.clientservice;
+package servletcontroller.employeeservice;
 
 import dao.DaoImplementation;
 import dao.IDaoInterface;
 import dao.MysqlDatabaseOperation;
 import inputvalidation.InputValidation;
 import inputvalidation.InvalidException;
-import pojo.Client;
+import pojo.Employee;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -16,34 +16,34 @@ import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DeleteClientServlet extends HttpServlet {
+public class DeleteEmployee extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        IDaoInterface<Client, MysqlDatabaseOperation> daoInterface = new DaoImplementation<>();
-        MysqlDatabaseOperation<Client> mysqlDatabaseOperation = MysqlDatabaseOperation.getInstance();
-        DeleteClientServlet deleteClientServlet = new DeleteClientServlet();
-        final String ID = "clientId";
+        IDaoInterface<Employee, MysqlDatabaseOperation> daoInterface = new DaoImplementation<>();
+        MysqlDatabaseOperation<Employee> mysqlDatabaseOperation = MysqlDatabaseOperation.getInstance();
+        DeleteEmployee deleteEmployee = new DeleteEmployee();
+        final String ID = "employeeId";
 
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
 
-        Client client = new Client();
+        Employee employee = new Employee();
 
         String id = request.getParameter(ID);
-        client.setId(id);
+        employee.setId(id);
 
-        boolean valid = deleteClientServlet.inputValidation(client, request, response);
+        boolean valid = deleteEmployee.inputValidation(employee, request, response);
         if (valid) {
 
             Map<String, String> checkData = new HashMap<>();
             checkData.put(ID, id);
 
             try {
-                boolean checkId = daoInterface.isIdPresent(client, mysqlDatabaseOperation, checkData);
+                boolean checkId = daoInterface.isIdPresent(employee, mysqlDatabaseOperation, checkData);
 
                 if (checkId) {
 
-                    daoInterface.delete(client, mysqlDatabaseOperation, checkData);
+                    daoInterface.delete(employee, mysqlDatabaseOperation, checkData);
                     out.print("<script>alert('Record deleted successfully!'); location ='retrieveAll';</script>");
 
                 } else {
@@ -55,12 +55,12 @@ public class DeleteClientServlet extends HttpServlet {
         }
     }
 
-    private boolean inputValidation(Client client, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    private boolean inputValidation(Employee employee, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         InputValidation inputValidation = new InputValidation();
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
         try {
-            inputValidation.userIdValidator(client.getId());
+            inputValidation.userIdValidator(employee.getId());
             return true;
         } catch (InvalidException e) {
             out.print("<script>alert('" + e + "');location ='retrieveAll';</script>");

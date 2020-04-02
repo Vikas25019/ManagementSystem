@@ -10,6 +10,16 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>insertEmployee</servlet-name>
+        <servlet-class>servletcontroller.employeeservice.CreateEmployee</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>insertEmployee</servlet-name>
+        <url-pattern>/html/employee/insert-employee</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>update</servlet-name>
         <servlet-class>servletcontroller.clientservice.UpdateClientServlet</servlet-class>
     </servlet>
@@ -17,6 +27,16 @@
     <servlet-mapping>
         <servlet-name>update</servlet-name>
         <url-pattern>/html/client/update</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>updateEmployee</servlet-name>
+        <servlet-class>servletcontroller.employeeservice.UpdateEmployee</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>updateEmployee</servlet-name>
+        <url-pattern>/html/employee/update-employee</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -30,6 +50,16 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>updateEmployeePage</servlet-name>
+        <servlet-class>servletcontroller.employeeservice.UpdateEmployeePage</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>updateEmployeePage</servlet-name>
+        <url-pattern>/html/employee/update-employee-page</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>retrieve</servlet-name>
         <servlet-class>servletcontroller.clientservice.RetrieveClientServlet</servlet-class>
     </servlet>
@@ -37,6 +67,16 @@
     <servlet-mapping>
         <servlet-name>retrieve</servlet-name>
         <url-pattern>/html/client/retrieve</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>retrieveEmployee</servlet-name>
+        <servlet-class>servletcontroller.employeeservice.RetrieveEmployee</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>retrieveEmployee</servlet-name>
+        <url-pattern>/html/employee/retrieve-employee</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -57,6 +97,16 @@
     <servlet-mapping>
         <servlet-name>retrieveAll</servlet-name>
         <url-pattern>/html/client/retrieveAll</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>retrieveAllEmployee</servlet-name>
+        <servlet-class>servletcontroller.employeeservice.RetrieveAllEmployee</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>retrieveAllEmployee</servlet-name>
+        <url-pattern>/html/employee/retrieve-all-employee</url-pattern>
     </servlet-mapping>
 
 </web-app>
