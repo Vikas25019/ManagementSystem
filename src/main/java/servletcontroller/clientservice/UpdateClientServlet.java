@@ -18,8 +18,7 @@ public class UpdateClientServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         IDaoInterface<Client, MysqlDatabaseOperation> daoInterface = new DaoImplementation<>();
         MysqlDatabaseOperation<Client> mysqlDatabaseOperation = MysqlDatabaseOperation.getInstance();
-        //update
-        //insertion
+
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
 
@@ -32,6 +31,7 @@ public class UpdateClientServlet extends HttpServlet {
         String id = request.getParameter(ID);
         String name = request.getParameter(NAME);
         String address = request.getParameter(ADDRESS);
+
 
 
         client.setId(id);
@@ -47,13 +47,12 @@ public class UpdateClientServlet extends HttpServlet {
             if (checkId) {
                 int status = daoInterface.update(client, mysqlDatabaseOperation, data , ID);
                 if(status>0){
-                    out.print("<p>Record saved successfully!</p>");
-                    request.getRequestDispatcher("../../index.html").include(request, response);
+                    out.print("<script>alert('record update successfully!');location ='retrieveAll';</script>");
                 }else{
-                    out.println("Sorry! unable to save record");
+                    out.print("<script>alert('Sorry! unable to update record');</script>");
                 }
             } else {
-                out.print("<p>Id is not present.</p>");
+                out.println("<script>alert('Id is not present'); location ='retrieveAll';</script>");
                 //System.out.println("Id is not present.");
             }
         } catch (Exception e) {

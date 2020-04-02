@@ -6,7 +6,7 @@
 
     <servlet-mapping>
         <servlet-name>insert</servlet-name>
-        <url-pattern>/managementsystem/client/insert</url-pattern>
+        <url-pattern>/html/client/insert</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -16,27 +16,47 @@
 
     <servlet-mapping>
         <servlet-name>update</servlet-name>
-        <url-pattern>/managementsystem/client/update</url-pattern>
+        <url-pattern>/html/client/update</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>updatePage</servlet-name>
+        <servlet-class>servletcontroller.clientservice.UpdateClientPage</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>updatePage</servlet-name>
+        <url-pattern>/html/client/update-page</url-pattern>
     </servlet-mapping>
 
     <servlet>
         <servlet-name>retrieve</servlet-name>
-        <servlet-class>servletcontroller.ClientCrudController</servlet-class>
+        <servlet-class>servletcontroller.clientservice.RetrieveClientServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
         <servlet-name>retrieve</servlet-name>
-        <url-pattern>/retrieve</url-pattern>
+        <url-pattern>/html/client/retrieve</url-pattern>
     </servlet-mapping>
 
     <servlet>
         <servlet-name>delete</servlet-name>
-        <servlet-class>servletcontroller.ClientCrudController</servlet-class>
+        <servlet-class>servletcontroller.clientservice.DeleteClientServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
         <servlet-name>delete</servlet-name>
-        <url-pattern>/delete</url-pattern>
+        <url-pattern>/html/client/delete</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>retrieveAll</servlet-name>
+        <servlet-class>servletcontroller.clientservice.RetrieveAllClient</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>retrieveAll</servlet-name>
+        <url-pattern>/html/client/retrieveAll</url-pattern>
     </servlet-mapping>
 
 </web-app>
