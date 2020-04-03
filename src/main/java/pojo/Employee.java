@@ -1,21 +1,20 @@
 package pojo;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.LinkedHashMap;
 
 public class Employee extends Person {
-    private String customerId;
+    private String clientId;
     private String department;
     private String email;
     private String dateOfBirth;
-    private HashMap<String,String> map =new HashMap<>();
+    private LinkedHashMap<String,String> map =new LinkedHashMap<>();
 
-    public String getCustomerId() {
-        return customerId;
+    public String getClientId() {
+        return clientId;
     }
 
-    public void setCustomerId(String customerId) {
-        this.customerId = customerId;
+    public void setClientId(String clientId) {
+        this.clientId = clientId;
     }
 
     public String getDepartment() {
@@ -42,12 +41,14 @@ public class Employee extends Person {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public Map<String,String> employeeData() {
+    public LinkedHashMap<String,String> employeeData() {
         map.put("employeeId",getId());
-        map.put("customerId",getCustomerId());
+        map.put("clientId",getClientId());
+        map.put("name",getName());
         map.put("department",getDepartment());
         map.put("email",getEmail());
-        map.put("dateOfBirth",getDateOfBirth());
+        map.put("dob",getDateOfBirth());
         return map;
     }
+
 }

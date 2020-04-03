@@ -1,6 +1,6 @@
 package inputvalidation;
 
-public class InvalidException extends Exception {
+public class InvalidException extends RuntimeException {
     String message = "";
 
     InvalidException(String error) {

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/style.css">
+
+</head>
+<body>
+<div class="body">
+    <div class="background">
+    </div>
+    <div class="header">
+        <div class = "logo"><p>EMPLOYEE MANAGEMENT SYSTEM</p></div>
+        <div class="navigation">
+            <div class="nav3">
+                <a href="../../index.html">Home</a>
+            </div>
+            <div class="nav1">
+                <a href="createemployee.html">Create Employee</a>
+            </div>
+            <div class="nav2">
+                <a href="showemployee.html">Show Employee</a>
+            </div>
+        </div>
+    </div>
+    <div class="middle">
+        <div class="insert" id ="insert" style="display:block">
+            <p style="color:white;text-align:center;font-size:20px;">CREATE NEW EMPLOYEE</p>
+            <form action="insert-employee" method="post">
+                <input type="text" name="employeeId" placeholder="Enter employee id"><br>
+                <input type="text" name="clientId" placeholder="Enter client id"><br>
+                <input type="text" name="name" placeholder="Enter name"><br>
+                <input type="text" name="department" placeholder="Enter department"><br>
+                <input type="text" name="email" placeholder="Enter email"><br>
+                <input type="text" name="dateOfBirth" placeholder="Enter dateOfBirth"><br>
+                <input type="submit" style="text-align:center">
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

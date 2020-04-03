@@ -1,11 +1,10 @@
 package pojo;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.LinkedHashMap;
 
 public class Client extends Person {
     private String address;
-    private Map<String,String> map = new HashMap<>();
+    private LinkedHashMap<String,String> map = new LinkedHashMap<>();
 
     public String getAddress() {
         return address;
@@ -15,7 +14,7 @@ public class Client extends Person {
         this.address = address;
     }
 
-    public Map<String,String> clientData() {
+    public LinkedHashMap<String,String> clientData() {
         map.put("clientId",getId());
         map.put("name",getName());
         map.put("address",getAddress());

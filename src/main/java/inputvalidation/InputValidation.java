@@ -3,7 +3,7 @@ package inputvalidation;
 import java.util.regex.Pattern;
 
 public class InputValidation {
-    private final String INPUT_OPTION = "[0-9]+";
+
     private final String USERID_PATTERN = "[0-9]*";
     private final String USERNAME_PATTERN = "[a-zA-Z]+";
     private final String ADDRESS_PATTERN = "[a-zA-Z]*";

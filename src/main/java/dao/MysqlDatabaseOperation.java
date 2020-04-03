@@ -41,7 +41,7 @@ public class MysqlDatabaseOperation<T> {
         return connection;
     }
 
-    int insertIntoDatabase(T t, Map<String, String> data) throws SQLException, ClassNotFoundException {
+    int insertIntoDatabase(T t, LinkedHashMap<String, String> data) throws SQLException, ClassNotFoundException {
 
         String tableName = t.getClass().getSimpleName().toLowerCase();
         Connection connection = this.mySqlDbConnection();
@@ -81,7 +81,7 @@ public class MysqlDatabaseOperation<T> {
 
     }
 
-    Map<String, String> retrieveFromDatabase(T t, Map<String, String> data) throws SQLException, ClassNotFoundException {
+    LinkedHashMap<String, String> retrieveFromDatabase(T t, LinkedHashMap<String, String> data) throws SQLException, ClassNotFoundException {
         String columnName = "";
         String select = "select * from %s";
         String tableName = t.getClass().getSimpleName().toLowerCase();
@@ -105,7 +105,7 @@ public class MysqlDatabaseOperation<T> {
 
         String selectSql = String.format(selectQuery, tableName, columnName, id);
         ResultSet results = statement.executeQuery(selectSql);
-        Map<String , String> viewData = new HashMap<>();
+        LinkedHashMap<String , String> viewData = new LinkedHashMap<>();
         while (results.next()) {
             for (String columns : columnsSet) {
                 String result = results.getString(columns);
@@ -165,7 +165,7 @@ public class MysqlDatabaseOperation<T> {
 
     }
 
-    List<List<String>> retrieveAll(T t) throws SQLException, ClassNotFoundException {
+    List<LinkedHashMap<String,String>> retrieveAll(T t) throws SQLException, ClassNotFoundException {
         String tableName = t.getClass().getSimpleName().toLowerCase();
         String columnName = "";
         String select = "select * from %s";
@@ -180,12 +180,12 @@ public class MysqlDatabaseOperation<T> {
             String column = md.getColumnName(i);
             columnsSet.add(column);
         }
-        List<List<String>> data= new ArrayList<>();
+        List<LinkedHashMap<String,String>> data= new ArrayList<>();
         while(rs.next()){
-            List<String> output = new ArrayList<>();
+            LinkedHashMap<String,String> output = new LinkedHashMap<>();
             for(String name : columnsSet){
                 String result = rs.getString(name);
-                output.add(result);
+                output.put(name,result);
             }
             data.add(output);
         }

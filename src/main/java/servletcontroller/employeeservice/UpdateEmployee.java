@@ -1,11 +1,11 @@
-package servletcontroller.clientservice;
+package servletcontroller.employeeservice;
 
 import dao.DaoImplementation;
 import dao.IDaoInterface;
 import dao.MysqlDatabaseOperation;
 import inputvalidation.InputValidation;
 import inputvalidation.InvalidException;
-import pojo.Client;
+import pojo.Employee;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -17,47 +17,59 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class UpdateClientServlet extends HttpServlet {
-    final String LOCATION = "retrieveAll";
+public class UpdateEmployee extends HttpServlet {
+    final String LOCATION = "retrieve-all-employee";
     final String alertMessage = "<script>alert('%s'); location ='%s';</script>";
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        IDaoInterface<Client, MysqlDatabaseOperation> daoInterface = new DaoImplementation<>();
-        MysqlDatabaseOperation<Client> mysqlDatabaseOperation = MysqlDatabaseOperation.getInstance();
-        UpdateClientServlet updateClientServlet = new UpdateClientServlet();
-
+        IDaoInterface<Employee, MysqlDatabaseOperation> daoInterface = new DaoImplementation<>();
+        MysqlDatabaseOperation<Employee> mysqlDatabaseOperation = MysqlDatabaseOperation.getInstance();
+        UpdateEmployee updateEmployee = new UpdateEmployee();
+        response.setContentType("text/html");
         PrintWriter out = response.getWriter();
 
-        final String ID = "clientId";
+        final String ID = "employeeId";
+        final String CLIENT_ID = "clientId";
         final String NAME = "name";
-        final String ADDRESS = "address";
+        final String DEPARTMENT = "department";
+        final String EMAIL = "email";
+        final String DOB = "dateOfBirth";
 
-        Client client = new Client();
+        Employee employee = new Employee();
 
         String id = request.getParameter(ID);
+        String clientId = request.getParameter(CLIENT_ID);
+
         String name = request.getParameter(NAME);
-        String address = request.getParameter(ADDRESS);
+        String department = request.getParameter(DEPARTMENT);
+        String email = request.getParameter(EMAIL);
+        String dob = request.getParameter(DOB);
 
-        client.setId(id);
-        client.setName(name);
-        client.setAddress(address);
+        employee.setId(id);
+        employee.setClientId(clientId);
+        employee.setName(name);
+        employee.setDepartment(department);
+        employee.setEmail(email);
+        employee.setDateOfBirth(dob);
 
 
-        boolean valid = updateClientServlet.inputValidation(client,response);
+
+        boolean valid = updateEmployee.inputValidation(employee,request,response);
         if(valid) {
 
-            LinkedHashMap<String, String> data = client.clientData();
+            LinkedHashMap<String, String> data = employee.employeeData();
             Map<String, String> checkData = new HashMap<>();
             checkData.put(ID, id);
             try {
 
-                boolean checkId = daoInterface.isIdPresent(client, mysqlDatabaseOperation, checkData);
+                boolean checkId = daoInterface.isIdPresent(employee, mysqlDatabaseOperation, checkData);
                 if (checkId) {
-                    int status = daoInterface.update(client, mysqlDatabaseOperation, data, ID);
+                    int status = daoInterface.update(employee, mysqlDatabaseOperation, data, ID);
                     if (status > 0) {
                         String message = "Record update successfully!";
                         String result = String.format(alertMessage,message,LOCATION);
                         out.println(result);
+
                     } else {
                         String message = "Sorry! unable to update record";
                         String result = String.format(alertMessage,message,LOCATION);
@@ -75,17 +87,20 @@ public class UpdateClientServlet extends HttpServlet {
         }
     }
 
-    private boolean inputValidation(Client client,  HttpServletResponse response) throws IOException, ServletException {
+    private boolean inputValidation(Employee employee, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         InputValidation inputValidation = new InputValidation();
-
+        response.setContentType("text/html");
         PrintWriter out = response.getWriter();
         try {
-            inputValidation.userNameValidator(client.getName());
-            inputValidation.userAddressValidator(client.getAddress());
+            inputValidation.userIdValidator(employee.getClientId());
+            inputValidation.userNameValidator(employee.getName());
+            inputValidation.userDepartmentValidator(employee.getDepartment());
+            inputValidation.userEmailValidator(employee.getEmail());
+            inputValidation.userDateOfBirthValidator(employee.getDateOfBirth());
             return true;
         } catch (InvalidException e) {
-            String id = client.getId();
-            String message = "<script>alert('%s');location ='update-page?clientId=%s';</script>";
+            String id = employee.getId();
+            String message = "<script>alert('%s');location ='update-employee-page?employeeId=%s';</script>";
             String result = String.format(message,e,id);
             out.println(result);
             return false;

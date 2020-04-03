@@ -5,14 +5,15 @@ import pojo.Person;
 import java.net.UnknownHostException;
 import java.sql.*;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public class DaoImplementation<T extends Person, U> implements IDaoInterface<T, U> {
+public class DaoImplementation<T , U> implements IDaoInterface<T, U> {
     MysqlDatabaseOperation<T> mysqlDatabaseOperation = MysqlDatabaseOperation.getInstance();
 
     @Override
-    public int create(T t, U u, Map<String, String> data) throws SQLException, ClassNotFoundException {
+    public int create(T t, U u, LinkedHashMap<String, String> data) throws SQLException, ClassNotFoundException {
         int status = 0;
         if (u instanceof MysqlDatabaseOperation) {
             status = mysqlDatabaseOperation.insertIntoDatabase(t,data);
@@ -24,8 +25,8 @@ public class DaoImplementation<T extends Person, U> implements IDaoInterface<T, 
     }
 
     @Override
-    public Map<String, String> retrieve(T t, U u, Map<String, String> data) throws SQLException, ClassNotFoundException, UnknownHostException {
-        Map<String, String> viewData;
+    public LinkedHashMap<String, String> retrieve(T t, U u, LinkedHashMap<String, String> data) throws SQLException, ClassNotFoundException, UnknownHostException {
+        LinkedHashMap<String, String> viewData;
         if (u instanceof MysqlDatabaseOperation) {
             viewData = mysqlDatabaseOperation.retrieveFromDatabase(t,data);
         }  else {
@@ -35,7 +36,7 @@ public class DaoImplementation<T extends Person, U> implements IDaoInterface<T, 
     }
 
     @Override
-    public int update(T t, U u, Map<String, String> data, String columnName) throws SQLException, ClassNotFoundException, UnknownHostException {
+    public int update(T t, U u, LinkedHashMap<String, String> data, String columnName) throws SQLException, ClassNotFoundException, UnknownHostException {
         int status = 0;
         if (u instanceof MysqlDatabaseOperation) {
            status =  mysqlDatabaseOperation.updateInDatabase(t,data,columnName);
@@ -44,7 +45,7 @@ public class DaoImplementation<T extends Person, U> implements IDaoInterface<T, 
     }
 
     @Override
-    public void delete(T t, U u, Map<String, String> data) throws SQLException, ClassNotFoundException, UnknownHostException {
+    public void delete(T t, U u, LinkedHashMap<String, String> data) throws SQLException, ClassNotFoundException, UnknownHostException {
         if (u instanceof MysqlDatabaseOperation) {
             mysqlDatabaseOperation.deleteFromDatabase(t,data);
         } else {
@@ -53,8 +54,8 @@ public class DaoImplementation<T extends Person, U> implements IDaoInterface<T, 
     }
 
     @Override
-    public List<List<String>> retrieveAll(T t, U u) throws SQLException, ClassNotFoundException {
-        List<List<String>> data;
+    public List<LinkedHashMap<String,String>> retrieveAll(T t, U u) throws SQLException, ClassNotFoundException {
+        List<LinkedHashMap<String,String>> data;
         if (u instanceof MysqlDatabaseOperation) {
             data = mysqlDatabaseOperation.retrieveAll(t);
         } else {

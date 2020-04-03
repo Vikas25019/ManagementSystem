@@ -14,14 +14,18 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class CreateClientServlet extends HttpServlet {
+    final String LOCATION = "createclient.html";
+    final String alertMessage = "<script>alert('%s'); location ='%s';</script>";
+
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         IDaoInterface<Client, MysqlDatabaseOperation> daoInterface = new DaoImplementation<>();
         MysqlDatabaseOperation<Client> mysqlDatabaseOperation = MysqlDatabaseOperation.getInstance();
         CreateClientServlet createClientServlet = new CreateClientServlet();
-        response.setContentType("text/html");
+
         PrintWriter out = response.getWriter();
 
         final String ID = "clientId";
@@ -30,7 +34,6 @@ public class CreateClientServlet extends HttpServlet {
 
         Client client = new Client();
 
-        //insertion
         String id = request.getParameter(ID);
         String name = request.getParameter(NAME);
         String address = request.getParameter(ADDRESS);
@@ -39,10 +42,10 @@ public class CreateClientServlet extends HttpServlet {
         client.setName(name);
         client.setAddress(address);
 
-        boolean valid = createClientServlet.inputValidation(client,request,response);
+        boolean valid = createClientServlet.inputValidation(client,response);
 
         if (valid) {
-            Map<String, String> data = client.clientData();
+            LinkedHashMap<String, String> data = client.clientData();
             Map<String, String> checkData = new HashMap<>();
             checkData.put(ID, id);
             try {
@@ -50,24 +53,29 @@ public class CreateClientServlet extends HttpServlet {
                 if (!checkId) {
                     int status = daoInterface.create(client, mysqlDatabaseOperation, data);
                     if (status > 0) {
-                        out.print("<script>alert('Record saved successfully!');</script>");
-                        request.getRequestDispatcher("createclient.html").include(request, response);
+                        String message = "Record saved successfully!";
+                        String result = String.format(alertMessage,message,LOCATION);
+                        out.println(result);
                     } else {
-                        out.print("<script>alert('Sorry! unable to save record');</script>");
+                        String message = "Sorry! unable to save record";
+                        String result = String.format(alertMessage,message,LOCATION);
+                        out.println(result);
                     }
                 }
                 else{
-                    out.println("<script>alert('Id already present'); location ='createclient.html';</script>");
+                    String message = "Id already present";
+                    String result = String.format(alertMessage,message,LOCATION);
+                    out.println(result);
                 }
             } catch (Exception e) {
-                out.println("error" + e);
+                String result = String.format(alertMessage,e,LOCATION);
+                out.println(result);
             }
         }
     }
 
-    private boolean inputValidation(Client client,HttpServletRequest request,HttpServletResponse response) throws IOException, ServletException {
+    private boolean inputValidation(Client client,HttpServletResponse response) throws IOException, ServletException {
         InputValidation inputValidation = new InputValidation();
-        response.setContentType("text/html");
         PrintWriter out = response.getWriter();
         try {
             inputValidation.userIdValidator(client.getId());
@@ -75,9 +83,10 @@ public class CreateClientServlet extends HttpServlet {
             inputValidation.userAddressValidator(client.getAddress());
             return true;
         } catch (InvalidException e) {
-            out.print("<script>alert('"+e+"');location ='createclient.html';</script>");
+            String result = String.format(alertMessage,e,LOCATION);
+            out.println(result);
             return false;
         }
     }
-}
 
+}
